@@ -2,3 +2,6 @@ rootProject.name = 'SPF'
 
 include ':jpf-core'
 include ':jpf-symbc'
+
+println project(':jpf-core').name
+println project(':jpf-symbc').name
