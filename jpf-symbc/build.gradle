@@ -135,8 +135,8 @@ test {
     exclude "/gov/nasa/jpf/symbc/strings/*.class"
     exclude "**/Test*\$*.class"
     exclude "**/TestSymbolicListener.class"
-    exclude "**/TestSymbolicOutput.class"
-    exclude "**/TestSymbolicJPF.class"
+    include "**/TestSymbolicOutput.class"
+    include "**/TestSymbolicJPF.class"
 
     testLogging {
         events "passed", "skipped", "failed"
@@ -152,6 +152,26 @@ test {
                                  "${result.skippedTestCount} skipped"]
 
             println "Summary: " + summaryFields.join(", ")
+        }
+    }
+}
+
+publishing {
+    publications {
+        jpfSymbc(MavenPublication) {
+            groupId = 'gov.nasa'
+            artifactId = 'jpf-symbc'
+            artifact createJpfJar
+        }
+        jpfAnnotation(MavenPublication) {
+            groupId = 'gov.nasa'
+            artifactId = 'jpf-annotations'
+            artifact createAnnotationsJar
+        }
+        jpfClasses(MavenPublication) {
+            groupId = 'gov.nasa'
+            artifactId = 'jpf-classes'
+            artifact createJpfClassesJar
         }
     }
 }
