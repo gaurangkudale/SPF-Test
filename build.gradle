@@ -5,19 +5,26 @@ allprojects{
 
 }
 
-task copyJpfCoreJars(type: Copy) {
-    from project(':jpf-core').buildDir
-    into project(':jpf-symbc').file('lib')
-    exclude "asm-7.1.jar"
-    exclude "classloader_specific_tests.jar"
-    exclude "RunJPF.jar"
-    exclude "RunTest.jar"
+project(':jpf-core'){
+    task copyJpfCoreJars(type: Copy) {
+        from project(':jpf-core').buildDir
+        into project(':jpf-symbc').file('lib')
+        exclude "asm-7.1.jar"
+        exclude "classloader_specific_tests.jar"
+        exclude "RunJPF.jar"
+        exclude "RunTest.jar"
+    }
+    defaultTasks "copyJpfCoreJars"
+}
+
+project(':jpf-symbc'){
+
 }
 
 task copyAllJars(type: Copy) {
     from subprojects.collect { it.tasks.withType(Jar) }
     into "$buildDir/allJars"
-    dependsOn(copyJpfCoreJars)
+    dependsOn "copyJpfCoreJars"
 }
 
 defaultTasks "copyAllJars"
