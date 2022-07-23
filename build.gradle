@@ -5,8 +5,12 @@ allprojects{
 
 }
 
-project(':jpf-core'){
+allprojects{
     task copyJpfCoreJars(type: Copy) {
+
+        group = "Copy Jars"
+        description = "Copies the jpf-core jars to jpf-symbc/lib."
+
         from project(':jpf-core').buildDir
         into project(':jpf-symbc').file('lib')
         exclude "asm-7.1.jar"
@@ -22,6 +26,10 @@ project(':jpf-symbc'){
 }
 
 task copyAllJars(type: Copy) {
+
+    group = "Copy Jars"
+    description = "Copies the jpf-core and jpf-symbc JARS to SPF/build/allJars."
+
     from subprojects.collect { it.tasks.withType(Jar) }
     into "$buildDir/allJars"
     dependsOn "copyJpfCoreJars"
