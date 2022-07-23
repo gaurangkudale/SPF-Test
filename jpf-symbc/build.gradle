@@ -12,6 +12,7 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 ext.manifestCommonAttrbutes = manifest {
@@ -28,11 +29,9 @@ apply from: "gradle/source-sets.gradle"
 apply from: "gradle/build-resources.gradle"
 
 dependencies {
-    ant.importBuild 'build-properties.xml'
 
-    def jpfLibs = files(ant.properties['jpf-core.native_classpath'].split(';'))
     def extLibs = fileTree(dir: 'lib', include: ['*.jar'])
-    def libs = extLibs + jpfLibs
+    def libs = extLibs
 
     implementation libs
     classesImplementation libs
