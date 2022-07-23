@@ -1,61 +1,11 @@
-//import com.sun.org.apache.bcel.internal.classfile.Annotations
-
 apply plugin: "java-library"
-
-//def jpfCoreDirPath = parent.projectDir + "/jpf-core/build/"
+apply plugin: "java"
 
 allprojects{
 
-    File jpf_core = file("$rootDir/jpf-core/build/")
-    File jpf_symbc = file("$rootDir/jpf-symbc/build/")
-//    println "$jpf_core.absolutePath"
-//    println "$jpf_symbc.absolutePath"
 }
 
-//def jpfCorePath = project(':jpf-core').buildDir.toString() + '*.jar'
-
-configurations {
-    Jars{
-        canBeConsumed = false
-        canBeResolved = true
-    }
-}
-
-artifacts {
-    Jars(jar)
-}
-project(':jpf-symbc') {
-//    configurations {
-//        compile
-//        compileJava
-//    }
-    dependencies {
-  //      compile(project(path: ":jpf-core"))
-//        compileJava(project(path: subprojects.buildDir))
-        File jpf_core = file("$rootDir/jpf-core/build/")
-
-//        File file2 = rootProject.file('root-relative/path/to/file2')
-//        println "$file1.absolutePath $file2.absolutePath"
-
-//        Jars(project(path: ":jpf-core", configuration: 'Jars'))
-//        compile project(path: jpf_core, configuration: 'Jars')
-       // rootProject.files("$buildDir/jpf.jar,jpf-annotations.jar")
-        def jpfLibs = fileTree("$project(path: jpf_core)") { include '*.jar' }
-        //files(project(':jpf-core').buildDir)
-        def extLibs = fileTree(dir: 'lib', include: ['*.jar'])
-        def libs = extLibs + jpfLibs
-        project(path: ":jpf-core", configuration: 'Jars')
-//        implementation libs
-//        classesImplementation libs
-//        peersImplementation libs
-//        examplesImplementation libs
-//        testImplementation libs
-//
-//        testImplementation "junit:junit:4.12"
-    }
-
-}
-task copyBin(type: Copy) {
+task copyJpfCoreJars(type: Copy) {
     from project(':jpf-core').buildDir
     into project(':jpf-symbc').file('lib')
     exclude "asm-7.1.jar"
@@ -63,72 +13,11 @@ task copyBin(type: Copy) {
     exclude "RunJPF.jar"
     exclude "RunTest.jar"
 }
-tasks.register('copyJarsInLibs', Copy) {
-    from layout.buildDirectory.file("reports/my-report.pdf"), layout.projectDirectory.file("src/docs/manual.pdf")
-    into layout.buildDirectory.dir("toArchive")
-}
-
-tasks.register('copyJarsDemo', Copy ){
-    from configurations.Jars
-    into buildDir
-}
 
 task copyAllJars(type: Copy) {
     from subprojects.collect { it.tasks.withType(Jar) }
     into "$buildDir/allJars"
+    dependsOn(copyJpfCoreJars)
 }
 
-task printBuildDirs{
-    doLast{
-
-        println  "Root project:   ${project.rootProject}"
-        println  "  rootDir:      ${project.rootDir}"
-        println  " subprojects   buildDir:    ${subprojects.buildDir}"
-        println  "  project dir:  ${System.getProperty("user.dir")}"
-        println  "  jpf-core build dir:   ${project(':jpf-core').buildDir} "
-        println  "  jpf-core build dir:   ${project(':jpf-symbc').buildDir} "
-        //println " testing : ${project.rootDir + 'jpf-core/build'}"
-        println " fileTree(\"${project(':jpf-core').buildDir}\") { include '*.jar' }"
-        println "User Dir: ${System.getProperty( 'user.dir' )}"
-        println(jpfCore)
-        project(':jpf-core').buildDir
-
-    }
-}
-
-task jpfCoreDir{
-    doLast{
-        // Using a getter method
-        println project.buildDir
-        getProject().getBuildDir()
-
-        // Using a setter method
-        project.buildDir = 'SPF/build'
-        getProject().setBuildDir('SPF/build')
-        //project(':a-subproject').buildDir gets subproject directory
-    }
-}
-//subprojects{
-task generateBuildPath {
-    group = "Sub-Projects path"
-    description = "Generates subprojects build path"
-
-    doLast {
-        Properties info = new Properties()
-        //def jpfCorePath = project(':jpf-core').buildDir.toString() + '/jpf.jar,jpf-annotations.jar'
-        def jpfSymbcPath = project(':jpf-symbc').buildDir.toString()
-        println(jpfCorePath)
-        println(jpfSymbcPath)
-        }
-    }
-//}
-
-
-
-    dependencies {
-
-           // runtime files('libs/a.jar', 'libs/b.jar')
-          // runtime fileTree("${project(':jpf-symbc').buildDir}") { include '*.jar' }
-        rootProject.files("$buildDir/jpf.jar,jpf-annotations.jar")
-    }
-
+defaultTasks "copyAllJars"
