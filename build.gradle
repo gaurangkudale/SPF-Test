@@ -32,7 +32,7 @@ task copyAllJars(type: Copy) {
 
     from subprojects.collect { it.tasks.withType(Jar) }
     into "$buildDir/allJars"
-    
+
 }
 
 defaultTasks "copyAllJars"
