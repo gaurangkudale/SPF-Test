@@ -122,24 +122,8 @@ task buildJars {
     dependsOn createJpfJar
 }
 
-task deleteJarFile(type: Delete) {
-    doLast{
-//        project.delete(files("${projectDir}/lib") {
-//            exclude '*.jar'
-//            dependsOn clean
-//        })
-
-//        def deleteJars ="${projectDir}/lib"
-//        file ( deleteJars ).list().each{
-//            f -> delete "${deleteJars}/${f}"
-//        }
-
-//        delete files("${projectDir}/lib/")
-//        include "jpf.jar"
-//        include "jpf-annotations.jar"
-//        include "jpf-classes.jar"
-//        dependsOn "clean"
-    }
+clean {
+    delete fileTree("${projectDir}/lib/") {include 'jpf.jar' , 'jpf-annotations.jar' , 'jpf-classes.jar'}
 }
 
 test {
