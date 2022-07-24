@@ -5,7 +5,7 @@ allprojects{
 
 }
 
-allprojects{
+project(':jpf-core'){
     task copyJpfCoreJars(type: Copy) {
 
         group = "Copy Jars"
