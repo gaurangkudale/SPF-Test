@@ -7,7 +7,6 @@ allprojects{
 
 project(':jpf-core'){
     task copyJpfCoreJars(type: Copy) {
-    doLast {
         group = "Copy Jars"
         description = "Copies the jpf-core jars to jpf-symbc/lib."
 
@@ -18,7 +17,6 @@ project(':jpf-core'){
         exclude "classloader_specific_tests.jar"
         exclude "RunJPF.jar"
         exclude "RunTest.jar"
-        }
     }
     defaultTasks "copyJpfCoreJars"
 }
@@ -34,7 +32,7 @@ task copyAllJars(type: Copy) {
 
     from subprojects.collect { it.tasks.withType(Jar) }
     into "$buildDir/allJars"
-    dependsOn "copyJpfCoreJars"
+    
 }
 
 defaultTasks "copyAllJars"
