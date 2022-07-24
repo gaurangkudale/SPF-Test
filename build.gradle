@@ -22,7 +22,7 @@ allprojects{
 }
 
 project(':jpf-symbc'){
-
+   
 }
 
 task copyAllJars(type: Copy) {
