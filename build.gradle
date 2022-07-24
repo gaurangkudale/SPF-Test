@@ -13,6 +13,7 @@ allprojects{
 
         from project(':jpf-core').buildDir
         into project(':jpf-symbc').file('lib')
+        exclude "jpf-classes.jar"
         exclude "asm-7.1.jar"
         exclude "classloader_specific_tests.jar"
         exclude "RunJPF.jar"

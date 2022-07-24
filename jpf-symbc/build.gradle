@@ -123,7 +123,7 @@ task buildJars {
 }
 
 clean {
-    delete fileTree("${projectDir}/lib/") {include 'jpf.jar' , 'jpf-annotations.jar' , 'jpf-classes.jar'}
+    delete fileTree("${projectDir}/lib/") {include 'jpf.jar' , 'jpf-annotations.jar'}
 }
 
 test {
