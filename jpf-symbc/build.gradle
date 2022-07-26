@@ -30,8 +30,7 @@ apply from: "gradle/build-resources.gradle"
 
 dependencies {
 
-    def extLibs = fileTree(dir: 'lib', include: ['*.jar'])
-    def libs = extLibs
+    def libs = fileTree(dir: 'lib', include: ['*.jar'])
 
     // implementation 'org.sat4j:org.sat4j.core:2.3.1'
     // implementation 'jaxen:jaxen:1.1'
@@ -57,9 +56,6 @@ task compile {
     group = "SPF Build"
     description = "Compiles all JPF symbc sources."
 
-    // These are automatic generated tasks from the Java Gradle Plugin.
-    // Gradle is able to infer the order of the source sets
-    // due to the compileClasspath attribute
     dependsOn compileExamplesJava
     dependsOn compileTestJava
 }
