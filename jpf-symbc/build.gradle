@@ -30,8 +30,8 @@ apply from: "gradle/build-resources.gradle"
 
 dependencies {
 
-    def libs = fileTree(dir: 'lib', include: ['*.jar'])
-
+    def extLibs = fileTree(dir: 'lib', include: ['*.jar'])
+    def libs = extLibs
     // implementation 'org.sat4j:org.sat4j.core:2.3.1'
     // implementation 'jaxen:jaxen:1.1'
     // implementation 'redis.clients:jedis:2.0.0'
