@@ -135,7 +135,7 @@ test {
     maxHeapSize = "1024m"
 
     exclude "**/JPF_*.class"
-    include "**/Test*.class"
+    exclude "**/Test*.class"
     exclude "**/TestBitwise*.class"
     exclude "**/TestCoverage.class"
     exclude "**/TestDIV.class"
