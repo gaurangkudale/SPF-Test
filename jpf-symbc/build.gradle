@@ -56,11 +56,11 @@ task compile {
     group = "SPF Build"
     description = "Compiles all JPF symbc sources."
 
-    dependsOn compileExamplesJava
-    dependsOn compileTestJava
     // These are automatic generated tasks from the Java Gradle Plugin.
     // Gradle is able to infer the order of the source sets
     // due to the compileClasspath attribute
+    dependsOn compileExamplesJava
+    dependsOn compileTestJava
 }
 
 task createJpfClassesJar(type: Jar) {
