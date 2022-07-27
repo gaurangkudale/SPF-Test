@@ -148,8 +148,8 @@ test {
     exclude "/gov/nasa/jpf/symbc/strings/*.class"
     exclude "**/Test*\$*.class"
     exclude "**/TestSymbolicListener.class"
-    include "**/TestSymbolicOutput.class"
-    include "**/TestSymbolicJPF.class"
+    exclude "**/TestSymbolicOutput.class"
+    exclude "**/TestSymbolicJPF.class"
 
     testLogging {
         events "passed", "skipped", "failed"
