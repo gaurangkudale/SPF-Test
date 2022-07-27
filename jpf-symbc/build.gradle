@@ -135,7 +135,7 @@ test {
     maxHeapSize = "1024m"
 
     exclude "**/JPF_*.class"
-    exclude "**/Test*.class"
+    include "**/Test*.class"
     exclude "**/TestBitwise*.class"
     exclude "**/TestCoverage.class"
     exclude "**/TestDIV.class"
@@ -148,8 +148,8 @@ test {
     exclude "/gov/nasa/jpf/symbc/strings/*.class"
     exclude "**/Test*\$*.class"
     exclude "**/TestSymbolicListener.class"
-    exclude "**/TestSymbolicOutput.class"
-    exclude "**/TestSymbolicJPF.class"
+    include "**/TestSymbolicOutput.class"
+    include "**/TestSymbolicJPF.class"
 
     testLogging {
         events "passed", "skipped", "failed"
